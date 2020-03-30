@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pizzapalatset", "Pizzapalatset\Pizzapalatset.csproj", "{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Debug|ARM.ActiveCfg = Debug|ARM
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Debug|ARM.Build.0 = Debug|ARM
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Debug|ARM.Deploy.0 = Debug|ARM
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Debug|ARM64.Build.0 = Debug|ARM64
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Debug|x64.ActiveCfg = Debug|x64
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Debug|x64.Build.0 = Debug|x64
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Debug|x64.Deploy.0 = Debug|x64
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Debug|x86.ActiveCfg = Debug|x86
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Debug|x86.Build.0 = Debug|x86
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Debug|x86.Deploy.0 = Debug|x86
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Release|ARM.ActiveCfg = Release|ARM
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Release|ARM.Build.0 = Release|ARM
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Release|ARM.Deploy.0 = Release|ARM
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Release|ARM64.ActiveCfg = Release|ARM64
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Release|ARM64.Build.0 = Release|ARM64
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Release|ARM64.Deploy.0 = Release|ARM64
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Release|x64.ActiveCfg = Release|x64
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Release|x64.Build.0 = Release|x64
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Release|x64.Deploy.0 = Release|x64
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Release|x86.ActiveCfg = Release|x86
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Release|x86.Build.0 = Release|x86
+		{256BFD1B-3865-436E-BDCC-5A4997CEB3D9}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1512A435-2F5E-4C69-964D-583330128A6E}
+	EndGlobalSection
+EndGlobal

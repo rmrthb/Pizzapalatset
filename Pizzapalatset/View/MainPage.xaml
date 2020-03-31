@@ -1,0 +1,162 @@
+﻿<Page
+    x:Class="Pizzapalatset.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Pizzapalatset"
+    xmlns:local1="using:Pizzapalatset.Model"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    RequestedTheme="Light"
+    >
+
+    <Grid Background="#e7e7e7">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" Text="Välkommen till Pizzapalatset!" VerticalAlignment="Center" FontSize="45" FontWeight="Medium" Foreground="#e58061"></TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="9" Grid.ColumnSpan="4" Text="Din beställning " VerticalAlignment="Bottom" FontSize="35" HorizontalAlignment="Center" FontWeight="Medium"></TextBlock>
+
+        <GridView             
+            x:Name="PizzaListView" 
+            Grid.Row="1" 
+            Grid.RowSpan="7" 
+            Grid.Column="1" 
+            Grid.ColumnSpan="7" 
+            ItemsSource="{x:Bind pizzaViewModel.PizzaList}"
+            DataContext="data:Pizza"
+            >
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="local1:Pizza">
+                    <StackPanel Margin="10" Height="400" Width="275" Background="#FFFFFF">
+
+                        <StackPanel VerticalAlignment="Top" >
+                            <Image Source="/Assets/mypizza.png" Height="200" Stretch="UniformToFill" Margin="10"></Image>
+                            <TextBlock Text="{Binding PizzaName}" HorizontalAlignment="Center" FontSize="20" FontWeight="Medium"></TextBlock>
+                            <TextBlock x:Name="DescTextBlock" TextWrapping="Wrap" Margin="5" Text="Tomatsås, ost, salami, vitlök" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding DisplayPrice}" HorizontalAlignment="Center" FontSize="25" Margin="16" FontWeight="Medium" Foreground="Orange"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                            <Button 
+                        x:Name="AddToCart" 
+                        Content="Lägg till" 
+                        HorizontalAlignment="Center"
+                        Width="175" 
+                        Height="40" 
+                        CornerRadius="25"
+                        FontSize="15"
+                        FontStyle="Normal"
+                        FontWeight="Medium"
+                        Foreground="White"
+                        Background="#e58061"
+                        Click="AddToCart_Click"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
+        <ListView 
+            x:Name="OrderListView" 
+            Background="White"
+            Grid.Row="1" 
+            Grid.RowSpan="6" 
+            Grid.Column="9" 
+            Grid.ColumnSpan="4" 
+            ItemsSource="{x:Bind orderViewModel.OrderList}"
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local1:Pizza">
+                    <StackPanel Orientation="Horizontal" Padding="5" Margin="5">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/mypizza.png" Height="100" Width="100"></Image>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Padding="5">
+                            <TextBlock Text="{x:Bind PizzaName}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5">
+                            <Button Content="-" x:Name="RemoveButton" VerticalAlignment="Center" HorizontalAlignment="Center" Click="RemoveButton_Click"></Button>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5">
+                            <TextBox PlaceholderText="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5">
+                            <Button Content="+" VerticalAlignment="Center" HorizontalAlignment="Center"></Button>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5">
+                            <TextBlock Text="{x:Bind DisplayPrice}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                        </StackPanel>
+
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button 
+            x:Name="CancelOrder" 
+            Content="Avbryt order" 
+            Grid.Column="9" 
+            Grid.ColumnSpan="2" 
+            Grid.Row="7" 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center" 
+            Width="250" Height="75" 
+            CornerRadius="35" 
+            FontSize="25"
+            FontStyle="Normal"
+            FontWeight="Medium"
+            Foreground="White"
+            Background="#990000"
+            Click="CancelOrder_Click"/>
+
+        <Button 
+            x:Name="ToPayment" 
+            Content="Betala" 
+            Grid.Column="11" 
+            Grid.ColumnSpan="2" 
+            Grid.Row="7" 
+            Width="250" 
+            Height="75" 
+            CornerRadius="35"
+            FontSize="25"
+            FontStyle="Normal"
+            FontWeight="Medium"
+            Foreground="White"
+            Background="#e58061"
+            Margin="10,0,0,0"
+            />
+        <TextBlock x:Name="OrderTotBlock" Grid.Column="9" Grid.ColumnSpan="4" HorizontalAlignment="Left" Grid.Row="8" Text="{x:Bind orderViewModel.OrderList}" FontSize="20" VerticalAlignment="Top"/>
+    </Grid>
+</Page>

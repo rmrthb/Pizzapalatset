@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Pizzapalatset.ViewModel;
+using Pizzapalatset.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +24,30 @@ namespace Pizzapalatset
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        PizzaViewModel pizzaViewModel;
+        OrderViewModel orderViewModel;
         public MainPage()
         {
             this.InitializeComponent();
+            pizzaViewModel = new PizzaViewModel();
+            orderViewModel = new OrderViewModel();
+
         }
+
+        private void AddToCart_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedPizza = PizzaListView.SelectedItem as Pizza;
+            orderViewModel.AddToCart(selectedPizza);
+        }
+        private void CancelOrder_Click(object sender, RoutedEventArgs e)
+        {
+            orderViewModel.CancelOrder();
+        }
+
+        private void RemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

@@ -4,17 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Pizzapalatset.Model
 {
-    class Order
+    class Order : INotifyPropertyChanged
     {
         public int OrderID { get; set; }
-        public int TotalCost { get; set; }
+        private int totalCost = 0;
+        public int TotalCost {
+            get { return totalCost; }
+            set { totalCost = value; this.NotifyPropertyChanged("TotalCost"); }
+        }
 
+        
         public Order()
         {
 
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

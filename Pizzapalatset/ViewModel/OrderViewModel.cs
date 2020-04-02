@@ -15,22 +15,7 @@ namespace Pizzapalatset.ViewModel
         public ObservableCollection<Pizza> OrderList = new ObservableCollection<Pizza>();
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(string caller = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(caller));
-            }
-        }
-
-        //public int TotalPrice {
-        //    get { return totalprice; }
-        //    set { totalprice = value;
-        //        NotifyPropertyChanged("TotalPrice");
-        //    }
-        //}
+        public Order MyOrder { get; set; }
 
         public OrderViewModel()
         {
@@ -39,7 +24,19 @@ namespace Pizzapalatset.ViewModel
 
         public void AddToCart(Pizza pizza)
         {
-            OrderList.Add(pizza);
+            if (pizza != null)
+            {
+                OrderList.Add(pizza);
+                CalculateTotalCost(pizza);
+            }
+        }
+
+        public void RemoveFromCart(Pizza pizza)
+        {
+            if (pizza != null)
+            {
+                OrderList.Remove(pizza);
+            }
         }
         public async void CancelOrder()
         {
@@ -57,6 +54,10 @@ namespace Pizzapalatset.ViewModel
                 await remove.ShowAsync();
                 OrderList.Clear();
             }
+        }
+        public void CalculateTotalCost(Pizza p)
+        {
+            MyOrder.TotalCost += p.PizzaPrice;
         }
     }
 }

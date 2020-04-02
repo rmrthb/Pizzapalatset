@@ -31,13 +31,24 @@ namespace Pizzapalatset
             this.InitializeComponent();
             pizzaViewModel = new PizzaViewModel();
             orderViewModel = new OrderViewModel();
+            PizzaListView.ItemsSource = pizzaViewModel.httpPizzaList;
+            GetPizzas();
+        }
 
+        private async void GetPizzas()
+        {
+            var pizzas = await pizzaViewModel.GetProductsAsync();
+
+            foreach(Pizza p in pizzas)
+            {
+                pizzaViewModel.httpPizzaList.Add(p);
+            }
         }
 
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
-            var selectedPizza = PizzaListView.SelectedItem as Pizza;
-            orderViewModel.AddToCart(selectedPizza);
+            //orderViewModel.AddToCart((Pizza)PizzaListView.SelectedItem);
+            
         }
         private void CancelOrder_Click(object sender, RoutedEventArgs e)
         {
@@ -46,8 +57,13 @@ namespace Pizzapalatset
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
-
+            orderViewModel.RemoveFromCart((Pizza)PizzaListView.SelectedItem);
         }
 
+        private void PizzaListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            orderViewModel.AddToCart((Pizza)PizzaListView.SelectedItem);
+            PizzaListView.SelectedItem = null;
+        }
     }
 }

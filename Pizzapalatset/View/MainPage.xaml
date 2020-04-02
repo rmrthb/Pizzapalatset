@@ -49,8 +49,8 @@
             Grid.RowSpan="7" 
             Grid.Column="1" 
             Grid.ColumnSpan="7" 
-            ItemsSource="{x:Bind pizzaViewModel.PizzaList}"
             DataContext="data:Pizza"
+            SelectionChanged="PizzaListView_SelectionChanged"
             >
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="local1:Pizza">
@@ -98,21 +98,14 @@
                     <StackPanel Orientation="Horizontal" Padding="5" Margin="5">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/mypizza.png" Height="100" Width="100"></Image>
+
                         </StackPanel>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" Padding="5">
                             <TextBlock Text="{x:Bind PizzaName}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5">
-                            <Button Content="-" x:Name="RemoveButton" VerticalAlignment="Center" HorizontalAlignment="Center" Click="RemoveButton_Click"></Button>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5">
-                            <TextBox PlaceholderText="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"></TextBox>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5">
-                            <Button Content="+" VerticalAlignment="Center" HorizontalAlignment="Center"></Button>
+                            <Button Content="Remove" x:Name="RemoveButton" VerticalAlignment="Center" HorizontalAlignment="Center" Click="RemoveButton_Click"></Button>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5">
@@ -157,6 +150,6 @@
             Background="#e58061"
             Margin="10,0,0,0"
             />
-        <TextBlock x:Name="OrderTotBlock" Grid.Column="9" Grid.ColumnSpan="4" HorizontalAlignment="Left" Grid.Row="8" Text="{x:Bind orderViewModel.OrderList}" FontSize="20" VerticalAlignment="Top"/>
+        <TextBlock x:Name="OrderTotBlock" Grid.Column="9" Grid.ColumnSpan="4" HorizontalAlignment="Left" Grid.Row="8" Text="{x:Bind orderViewModel.MyOrder.TotalCost}" x:DefaultBindMode="TwoWay" FontSize="20" VerticalAlignment="Top"/>
     </Grid>
 </Page>

@@ -17,8 +17,10 @@ namespace Pizzapalatset.Model
             set { totalCost = value; this.NotifyPropertyChanged("TotalCost"); }
         }
 
-        
-        public Order()
+        public string DisplayTotalCost { get { return $"Totalt: {TotalCost}kr"; } }
+    
+
+    public Order()
         {
 
         }

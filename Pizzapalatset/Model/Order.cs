@@ -10,14 +10,27 @@ namespace Pizzapalatset.Model
 {
     class Order : INotifyPropertyChanged
     {
-        public int OrderID { get; set; }
         private int totalCost = 0;
+        private int orderid = 0;
         public int TotalCost {
             get { return totalCost; }
-            set { totalCost = value; this.NotifyPropertyChanged("TotalCost"); }
+            set { totalCost = value;
+                  NotifyPropertyChanged("TotalCost"); 
+                }
+        }
+        public int OrderID {
+            get { return orderid; }
+            set { orderid = value;
+                NotifyPropertyChanged("OrderID");
+            }
         }
 
-        
+
+        public Order(int orderid, int totalcost)
+        {
+            OrderID = orderid;
+            TotalCost = totalcost;
+        }
         public Order()
         {
 
@@ -25,9 +38,12 @@ namespace Pizzapalatset.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        private void NotifyPropertyChanged(string caller = "")
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(caller));
+            }
         }
     }
 }

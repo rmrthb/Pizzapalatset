@@ -48,7 +48,7 @@ namespace Pizzapalatset
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
             //orderViewModel.AddToCart((Pizza)PizzaListView.SelectedItem);
-            
+
         }
         private void CancelOrder_Click(object sender, RoutedEventArgs e)
         {
@@ -57,13 +57,20 @@ namespace Pizzapalatset
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
-            orderViewModel.RemoveFromCart((Pizza)PizzaListView.SelectedItem);
+            orderViewModel.RemoveFromCart((Pizza)OrderListView.SelectedItem);
         }
 
         private void PizzaListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             orderViewModel.AddToCart((Pizza)PizzaListView.SelectedItem);
             PizzaListView.SelectedItem = null;
+        }
+
+        private async void ToPayment_Click(object sender, RoutedEventArgs e)
+        {
+            //orderViewModel.CreateOrderinDB();
+            Order p = orderViewModel.MyOrder;
+            await orderViewModel.CreateOrderinDB(p);
         }
     }
 }

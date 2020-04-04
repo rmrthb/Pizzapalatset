@@ -96,8 +96,8 @@
             >
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local1:Pizza">
-                    <Border BorderBrush="Black" BorderThickness="1">
-                        <StackPanel Orientation="Horizontal" Padding="5" Margin="5">
+
+                    <StackPanel Orientation="Horizontal" Padding="5" Margin="5">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/mypizza.png" Height="100" Width="100"></Image>
 
@@ -110,11 +110,10 @@
                             <Button Content="Remove" x:Name="RemoveButton" VerticalAlignment="Center" HorizontalAlignment="Center" Click="RemoveButton_Click"></Button>
                         </StackPanel>
 
-                            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5">
-                                <TextBlock Text="{x:Bind DisplayPrice}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
-                            </StackPanel>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5">
+                            <TextBlock Text="{x:Bind DisplayPrice}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                         </StackPanel>
-                    </Border>
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

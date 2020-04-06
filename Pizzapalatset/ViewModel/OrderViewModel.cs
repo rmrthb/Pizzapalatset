@@ -139,22 +139,15 @@ namespace Pizzapalatset.ViewModel
         public async Task DeleteOrderAsync(int id)
         {
             var httpClient = new HttpClient();
-
             var result = await httpClient.DeleteAsync(orderUrl + id);
-
-            MessageDialog msg = new MessageDialog($"Order med ordernummer: {id} har ångrats, och köket har meddelats.");
-
+            MessageDialog msg = new MessageDialog("Din order är avbruten.", $"Order {id}");
             await msg.ShowAsync();
-            /*TEST*/
         }
 
         public async Task<ObservableCollection<Order>> GetOrdersAsync()
         {
-            //steg 1
             var jsonProducts = await httpClient.GetStringAsync(orderUrl);
-            //steg 2
             var orders = JsonConvert.DeserializeObject<ObservableCollection<Order>>(jsonProducts);
-            //steg 3
             return orders;
         }
     }

@@ -18,7 +18,6 @@ namespace Pizzapalatset.Model
             PizzaName = pizzaname;
             PizzaPrice = pizzaprice;
         }
-
         public string DisplayPrice { get { return $"{PizzaPrice}kr"; } }
     }
 }

@@ -12,6 +12,9 @@ namespace Pizzapalatset.Model
     {
         private int totalCost = 0;
         private int orderid = 0;
+        private string display = "";
+        private string displaytot = "";
+
         public int TotalCost {
             get { return totalCost; }
             set { totalCost = value;
@@ -25,25 +28,25 @@ namespace Pizzapalatset.Model
             }
         }
 
-        //public string DisplayOrders
-        //{
-        //    get { return $"Ordernummer: {OrderID.ToString()}"; }
-        //    set
-        //    {
-        //        orderid = Convert.ToInt32(value);
-        //        NotifyPropertyChanged("DisplayOrders");
-        //    }
-        //}
+        public string DisplayOrders
+        {
+            get { return $"Ordernummer: {OrderID.ToString()}"; }
+            set
+            {
+                display = value;
+                NotifyPropertyChanged("DisplayOrders");
+            }
+        }
 
-        //public string DisplayTotalCost
-        //{
-        //    get { return $"Totalkostnad: {TotalCost.ToString()}"; }
-        //    set
-        //    {
-        //        totalCost = Convert.ToInt32(value);
-        //        NotifyPropertyChanged("DisplayTotalCost");
-        //    }
-        //}
+        public string DisplayTotalCost
+        {
+            get { return $"Totalkostnad: {TotalCost.ToString()} kr"; }
+            set
+            {
+                displaytot = value;
+                NotifyPropertyChanged("DisplayTotalCost");
+            }
+        }
 
         public Order(int orderid, int totalcost)
         {

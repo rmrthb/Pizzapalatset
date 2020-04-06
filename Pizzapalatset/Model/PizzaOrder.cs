@@ -16,7 +16,6 @@ namespace Pizzapalatset.Model
             OrderID = orderId;
             PizzaID = pizzaId;
         }
-
         public PizzaOrder()
         {
         }

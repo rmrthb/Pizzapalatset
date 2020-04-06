@@ -41,7 +41,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" Text="Välkommen till Pizzapalatset!" VerticalAlignment="Center" FontSize="45" FontWeight="Medium" Foreground="#e58061"></TextBlock>
-        
+
 
         <GridView             
             x:Name="PizzaListView" 
@@ -55,7 +55,7 @@
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="local1:Pizza">
                     <StackPanel Margin="10" Height="400" Width="275" Background="#FFFFFF">
-                        
+
                         <StackPanel VerticalAlignment="Top" >
                             <Image Source="/Assets/mypizza.png" Height="200" Stretch="UniformToFill" Margin="10"></Image>
                             <TextBlock Text="{Binding PizzaName}" HorizontalAlignment="Center" FontSize="20" FontWeight="Medium"></TextBlock>
@@ -79,10 +79,10 @@
                         Foreground="White"
                         Background="#e58061"
                         IsEnabled="False"
+                        
                         Click="AddToCart_Click"
                                 />
                         </StackPanel>
-
                     </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>
@@ -111,7 +111,7 @@
                         <StackPanel Orientation="Horizontal" Grid.Column="0" Padding="5">
                             <Image Source="/Assets/mypizza.png" Height="100" Width="100" Stretch="UniformToFill"></Image>
                         </StackPanel>
-                        
+
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="20"  Grid.Column="1">
                             <TextBlock Text="{x:Bind PizzaName}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Medium" FontSize="20"></TextBlock>
                         </StackPanel>
@@ -123,7 +123,7 @@
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="4" Width="150" Padding="20" >
                             <Button Content="✕" x:Name="RemoveButton" VerticalAlignment="Center" HorizontalAlignment="Right" Click="RemoveButton_Click"></Button>
                         </StackPanel>
-                        
+
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -204,7 +204,7 @@
                 />
             </Border>
         </StackPanel>
-        
+
         <StackPanel 
         Grid.Row="7"
         Grid.Column="9"
@@ -224,5 +224,24 @@
                 />
             </Border>
         </StackPanel>
+        <TextBox
+            x:Name="CancelInDB"
+            PlaceholderText="Order nr"
+            Grid.Column="10"
+            Grid.Row="8"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center"
+            />
+        <Button
+            x:Name="CancelOrderDB"
+            Content="Ångra order" 
+            CornerRadius="20"
+            FontWeight="Normal"
+            Grid.Column="11" 
+            Grid.Row="9" 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center"
+            Click="CancelOrderDB_Click"
+            />
     </Grid>
 </Page>

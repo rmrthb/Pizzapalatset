@@ -77,7 +77,7 @@ namespace Pizzapalatset.ViewModel
 
             if ((int)result.Id == 0 && OrderList.Count > 0)
             {
-                MessageDialog confirm = new MessageDialog($"Order {o.OrderID} har skickats till köket. Smaklig måltid!");
+                MessageDialog confirm = new MessageDialog($"Din order har skickats till köket. Smaklig måltid!");
                 await confirm.ShowAsync();
                 await CreateOrderinDB(o);
                 OrderList.Clear();
@@ -101,7 +101,7 @@ namespace Pizzapalatset.ViewModel
             }
             return MyOrder.TotalCost;
         }
-        
+
         /// <summary>
         /// Creates and posts an order to the order table + post to the junction table. 
         /// </summary>
@@ -110,25 +110,40 @@ namespace Pizzapalatset.ViewModel
         /// 
         public async Task CreateOrderinDB(Order o)
         {
-            var orderId = JsonConvert.SerializeObject(o);
-            HttpContent httpContent = new StringContent(orderId);
+            var myOrder = JsonConvert.SerializeObject(o);
+            HttpContent httpContent = new StringContent(myOrder);
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var order = await httpClient.PostAsync(orderUrl, httpContent);
-            var temp = await order.Content.ReadAsStringAsync();
-            int maxId = int.Parse(temp);
+            var orderDB = await httpClient.PostAsync(orderUrl, httpContent);
+            var readDB = await orderDB.Content.ReadAsStringAsync();
+
+            int orderNo = int.Parse(readDB);
 
             if (OrderList.Count > 0)
             {
                 foreach (var item in OrderList)
                 {
-                    var test = new PizzaOrder() { OrderID = maxId, PizzaID = item.PizzaID };
-                    orderId = JsonConvert.SerializeObject(test);
-                    httpContent = new StringContent(orderId);
+                    var pOrder = new PizzaOrder() { OrderID = orderNo, PizzaID = item.PizzaID };
+                    myOrder = JsonConvert.SerializeObject(pOrder);
+                    httpContent = new StringContent(myOrder);
                     httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                     await httpClient.PostAsync(pOrderUrl, httpContent);
                 }
             }
             OrderList.Clear();
+
+            MessageDialog msg = new MessageDialog($"Du har fått ordernummer: {orderNo}");
+            await msg.ShowAsync();
+        }
+
+        public async Task DeleteOrderAsync(int id)
+        {
+            var httpClient = new HttpClient();
+
+            var result = await httpClient.DeleteAsync(orderUrl + id);
+
+            MessageDialog msg = new MessageDialog($"Order med ordernummer: {id} har ångrats, och köket har meddelats.");
+
+            await msg.ShowAsync();
         }
     }
 }

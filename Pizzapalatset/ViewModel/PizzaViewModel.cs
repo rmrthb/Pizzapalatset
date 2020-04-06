@@ -60,7 +60,6 @@ namespace Pizzapalatset.ViewModel
             PizzaList.Add(new Pizza(2, "Vesuvio", 59));
             PizzaList.Add(new Pizza(3, "Kebabpizza", 59));
             PizzaList.Add(new Pizza(4, "Gudfader", 59));
-
         }
     }
 }

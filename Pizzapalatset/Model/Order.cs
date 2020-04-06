@@ -24,8 +24,6 @@ namespace Pizzapalatset.Model
                 NotifyPropertyChanged("OrderID");
             }
         }
-
-
         public Order(int orderid, int totalcost)
         {
             OrderID = orderid;

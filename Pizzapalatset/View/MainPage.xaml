@@ -55,7 +55,7 @@
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="local1:Pizza">
                     <StackPanel Margin="10" Height="400" Width="275" Background="#FFFFFF">
-
+                        
                         <StackPanel VerticalAlignment="Top" >
                             <Image Source="/Assets/mypizza.png" Height="200" Stretch="UniformToFill" Margin="10"></Image>
                             <TextBlock Text="{Binding PizzaName}" HorizontalAlignment="Center" FontSize="20" FontWeight="Medium"></TextBlock>
@@ -76,7 +76,8 @@
                         FontWeight="Medium"
                         Foreground="White"
                         Background="#e58061"
-                        Click="AddToCart_Click"/>
+                        Click="AddToCart_Click"
+                                />
                         </StackPanel>
 
                     </StackPanel>
@@ -95,6 +96,7 @@
             >
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local1:Pizza">
+
                     <StackPanel Orientation="Horizontal" Padding="5" Margin="5">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/mypizza.png" Height="100" Width="100"></Image>
@@ -111,7 +113,6 @@
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5">
                             <TextBlock Text="{x:Bind DisplayPrice}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                         </StackPanel>
-
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -149,6 +150,7 @@
             Foreground="White"
             Background="#e58061"
             Margin="10,0,0,0"
+            Click="ToPayment_Click"
             />
         <TextBlock x:Name="OrderTotBlock" Grid.Column="9" Grid.ColumnSpan="4" HorizontalAlignment="Left" Grid.Row="8" Text="{x:Bind orderViewModel.MyOrder.TotalCost}" x:DefaultBindMode="TwoWay" FontSize="20" VerticalAlignment="Top"/>
     </Grid>

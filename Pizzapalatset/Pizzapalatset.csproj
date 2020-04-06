@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Model\Order.cs" />
     <Compile Include="Model\Pizza.cs" />
+    <Compile Include="Model\PizzaOrder.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\PizzaViewModel.cs" />
     <Compile Include="View\MainPage.xaml.cs">

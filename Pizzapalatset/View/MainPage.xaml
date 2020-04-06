@@ -2,7 +2,7 @@
     x:Class="Pizzapalatset.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Pizzapalatset"
+    xmlns:local="using:Pizzapalatset.Model"
     xmlns:local1="using:Pizzapalatset.Model"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -52,7 +52,7 @@
             SelectionChanged="PizzaListView_SelectionChanged"
             >
             <GridView.ItemTemplate>
-                <DataTemplate x:DataType="local1:Pizza">
+                <DataTemplate x:DataType="local:Pizza">
                     <StackPanel Margin="10" Height="400" Width="275" Background="#FFFFFF">
 
                         <StackPanel VerticalAlignment="Top" >
@@ -93,7 +93,7 @@
             ItemsSource="{x:Bind orderViewModel.OrderList}" Margin="0,60,0,0"
             >
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local1:Pizza">
+                <DataTemplate x:DataType="local:Pizza">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />

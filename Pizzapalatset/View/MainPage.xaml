@@ -153,5 +153,8 @@
             Click="ToPayment_Click"
             />
         <TextBlock x:Name="OrderTotBlock" Grid.Column="9" Grid.ColumnSpan="4" HorizontalAlignment="Left" Grid.Row="8" Text="{x:Bind orderViewModel.MyOrder.TotalCost}" x:DefaultBindMode="TwoWay" FontSize="20" VerticalAlignment="Top"/>
+        <Button x:Name="CancelOrderDB" Content="Ångra order" Grid.Column="11" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Center" Click="CancelOrderDB_Click"/>
+        <TextBox x:Name="CancelDBText" PlaceholderText="Order no" Grid.Column="10" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="8" TextWrapping="Wrap"/>
+
     </Grid>
 </Page>

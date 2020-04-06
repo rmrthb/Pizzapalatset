@@ -61,6 +61,32 @@ namespace Pizzapalatset.ViewModel
                 MessageDialog remove = new MessageDialog("Din order är avbruten.");
                 await remove.ShowAsync();
                 OrderList.Clear();
+                MyOrder.TotalCost = 0;
+            }
+        }
+
+        public async Task ConfirmOrder(Order o)
+        {
+            var ready = new MessageDialog("Är du redo att skicka din beställning till köket?", "Bekräfta order");
+
+            ready.Commands.Clear();
+            ready.Commands.Add(new UICommand { Label = "Ja", Id = 0 });
+            ready.Commands.Add(new UICommand { Label = "Avbryt", Id = 1 });
+
+            var result = await ready.ShowAsync();
+
+            if ((int)result.Id == 0 && OrderList.Count > 0)
+            {
+                MessageDialog confirm = new MessageDialog($"Din order har skickats till köket. Smaklig måltid!");
+                await confirm.ShowAsync();
+                await CreateOrderinDB(o);
+                OrderList.Clear();
+                MyOrder.TotalCost = 0;
+            }
+            else
+            {
+                MessageDialog empty = new MessageDialog($"Din order kan inte vara tom! Lägg till pizzor i ordern och försök igen.");
+                await empty.ShowAsync();
             }
         }
         public int CalculateTotalCost(Pizza p, bool tf)
@@ -75,68 +101,49 @@ namespace Pizzapalatset.ViewModel
             }
             return MyOrder.TotalCost;
         }
-        
+
+        /// <summary>
+        /// Creates and posts an order to the order table + post to the junction table. 
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        /// 
         public async Task CreateOrderinDB(Order o)
         {
-            var orderId = JsonConvert.SerializeObject(o);
-            HttpContent httpContent = new StringContent(orderId);
+            var myOrder = JsonConvert.SerializeObject(o);
+            HttpContent httpContent = new StringContent(myOrder);
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var order = await httpClient.PostAsync(orderUrl, httpContent);
-            var temp = await order.Content.ReadAsStringAsync();
-            int maxId = int.Parse(temp);
+            var orderDB = await httpClient.PostAsync(orderUrl, httpContent);
+            var readDB = await orderDB.Content.ReadAsStringAsync();
 
-            if (OrderList != null)
+            int orderNo = int.Parse(readDB);
+
+            if (OrderList.Count > 0)
             {
                 foreach (var item in OrderList)
                 {
-                    var test = new PizzaOrder() { OrderID = maxId, PizzaID = item.PizzaID };
-                    orderId = JsonConvert.SerializeObject(test);
-                    httpContent = new StringContent(orderId);
+                    var pOrder = new PizzaOrder() { OrderID = orderNo, PizzaID = item.PizzaID };
+                    myOrder = JsonConvert.SerializeObject(pOrder);
+                    httpContent = new StringContent(myOrder);
                     httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                     await httpClient.PostAsync(pOrderUrl, httpContent);
                 }
-
-                MessageDialog msg = new MessageDialog($"Order {o.OrderID} has been sent to the kitchen!");
-                await msg.ShowAsync();
-                OrderList.Clear();
             }
+            OrderList.Clear();
 
-
-
-            //HttpResponseMessage response = await httpClient.PostAsync(orderUrl, httpContent);
-
-            //var read = await response.Content.ReadAsStringAsync();
-
-            //var deserialised = JsonConvert.DeserializeObject<int>(read);
-
-            //MyOrder.OrderID = deserialised;
-
+            MessageDialog msg = new MessageDialog($"Du har fått ordernummer: {orderNo}");
+            await msg.ShowAsync();
         }
 
-        //public async Task PostOrder(Order o)
-        //{
-            //var orderId = JsonConvert.SerializeObject(o);
+        public async Task DeleteOrderAsync(int id)
+        {
+            var httpClient = new HttpClient();
 
-            //HttpContent httpContent = new StringContent(orderId);
+            var result = await httpClient.DeleteAsync(orderUrl + id);
 
-            //httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            MessageDialog msg = new MessageDialog($"Order med ordernummer: {id} har ångrats, och köket har meddelats.");
 
-            //var order = await httpClient.PostAsync(pOrderUrl, httpContent);
-            //var temp = await order.Content.ReadAsStringAsync();
-
-            //int maxId = int.Parse(temp);
-
-            //foreach (var item in OrderList)
-            //{
-            //    var test = new PizzaOrder() { OrderID = maxId, PizzaID = item.PizzaID };
-            //    orderId = JsonConvert.SerializeObject(test);
-            //    httpContent = new StringContent(orderId);
-            //    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            //    await httpClient.PostAsync(pOrderUrl, httpContent);
-            //}
-        //}
-        
-        //Metod för att beställa allt i kundvagnen
-
+            await msg.ShowAsync();
+        }
     }
 }

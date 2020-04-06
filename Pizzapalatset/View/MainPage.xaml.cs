@@ -68,9 +68,13 @@ namespace Pizzapalatset
 
         private async void ToPayment_Click(object sender, RoutedEventArgs e)
         {
-            //orderViewModel.CreateOrderinDB();
             Order p = orderViewModel.MyOrder;
             await orderViewModel.CreateOrderinDB(p);
+        }
+
+        private async void CancelOrderDB_Click(object sender, RoutedEventArgs e)
+        {
+            await orderViewModel.DeleteOrderAsync(Convert.ToInt32(CancelInDB.Text));
         }
     }
 }

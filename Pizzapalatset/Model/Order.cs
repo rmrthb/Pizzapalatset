@@ -24,6 +24,27 @@ namespace Pizzapalatset.Model
                 NotifyPropertyChanged("OrderID");
             }
         }
+
+        //public string DisplayOrders
+        //{
+        //    get { return $"Ordernummer: {OrderID.ToString()}"; }
+        //    set
+        //    {
+        //        orderid = Convert.ToInt32(value);
+        //        NotifyPropertyChanged("DisplayOrders");
+        //    }
+        //}
+
+        //public string DisplayTotalCost
+        //{
+        //    get { return $"Totalkostnad: {TotalCost.ToString()}"; }
+        //    set
+        //    {
+        //        totalCost = Convert.ToInt32(value);
+        //        NotifyPropertyChanged("DisplayTotalCost");
+        //    }
+        //}
+
         public Order(int orderid, int totalcost)
         {
             OrderID = orderid;

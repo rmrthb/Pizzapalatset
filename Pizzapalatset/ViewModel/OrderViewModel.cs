@@ -16,7 +16,7 @@ namespace Pizzapalatset.ViewModel
     class OrderViewModel
     {
         public ObservableCollection<Pizza> OrderList = new ObservableCollection<Pizza>();
-        public ObservableCollection<Order> MyCart = new ObservableCollection<Order>();
+        public ObservableCollection<Order> httpOrderList = new ObservableCollection<Order>();
 
         HttpClient httpClient;
 
@@ -28,6 +28,7 @@ namespace Pizzapalatset.ViewModel
         {
             MyOrder = new Order();
             httpClient = new HttpClient();
+            httpOrderList = new ObservableCollection<Order>();
         }
 
         public void AddToCart(Pizza pizza)
@@ -145,6 +146,16 @@ namespace Pizzapalatset.ViewModel
 
             await msg.ShowAsync();
             /*TEST*/
+        }
+
+        public async Task<ObservableCollection<Order>> GetOrdersAsync()
+        {
+            //steg 1
+            var jsonProducts = await httpClient.GetStringAsync(orderUrl);
+            //steg 2
+            var orders = JsonConvert.DeserializeObject<ObservableCollection<Order>>(jsonProducts);
+            //steg 3
+            return orders;
         }
     }
 }

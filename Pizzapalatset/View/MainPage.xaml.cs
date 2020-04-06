@@ -32,7 +32,9 @@ namespace Pizzapalatset
             pizzaViewModel = new PizzaViewModel();
             orderViewModel = new OrderViewModel();
             PizzaListView.ItemsSource = pizzaViewModel.httpPizzaList;
+            OrderAsyncListView.ItemsSource = orderViewModel.httpOrderList;
             GetPizzas();
+            GetOrders();
         }
 
         private async void GetPizzas()
@@ -44,6 +46,16 @@ namespace Pizzapalatset
                 pizzaViewModel.httpPizzaList.Add(p);
             }
         }
+        private async void GetOrders()
+        {
+            var orders = await orderViewModel.GetOrdersAsync();
+
+            foreach(Order o in orders)
+            {
+                orderViewModel.httpOrderList.Add(o);
+            }
+        }
+
 
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
@@ -70,12 +82,16 @@ namespace Pizzapalatset
         {
             Order o = orderViewModel.MyOrder;
             await orderViewModel.ConfirmOrder(o);
+            orderViewModel.httpOrderList.Clear();
+            GetOrders();
         }
 
         private async void CancelOrderDB_Click(object sender, RoutedEventArgs e)
         {
             await orderViewModel.DeleteOrderAsync(Convert.ToInt32(CancelInDB.Text));
             CancelInDB.Text = "";
+            orderViewModel.httpOrderList.Clear();
+            GetOrders();
         }
     }
 }

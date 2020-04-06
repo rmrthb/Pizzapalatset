@@ -27,7 +27,10 @@ namespace Pizzapalatset.ViewModel
             httpPizzaList = new ObservableCollection<Pizza>();
             httpClient = new HttpClient();
         }
-
+        /// <summary>
+        /// Method that retrieves all the pizzas in the server database.
+        /// </summary>
+        /// <returns></returns>
         public async Task<ObservableCollection<Pizza>> GetProductsAsync()
         {
             //steg 1
@@ -38,6 +41,11 @@ namespace Pizzapalatset.ViewModel
             return pizzas;
         }
 
+        /// <summary>
+        /// In case the admin wants to add a pizza.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public async Task AddProductAsync(Pizza p)
         {
             //steg 1: serializera object till sträng
@@ -52,7 +60,9 @@ namespace Pizzapalatset.ViewModel
             //steg 4: Posta
             await httpClient.PostAsync(url, httpContent);
         }
-
+        /// <summary>
+        /// Method that generates a set of pizzas, if I want to test the application offline.
+        /// </summary>
         public void InitPizzaList()
         {
             PizzaList.Add(new Pizza(0, "Margarita", 59));

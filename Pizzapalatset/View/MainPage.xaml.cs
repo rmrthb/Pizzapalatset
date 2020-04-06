@@ -19,9 +19,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Pizzapalatset
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         PizzaViewModel pizzaViewModel;
@@ -29,6 +26,10 @@ namespace Pizzapalatset
         public MainPage()
         {
             this.InitializeComponent();
+            Init();
+        }
+        private void Init()
+        {
             pizzaViewModel = new PizzaViewModel();
             orderViewModel = new OrderViewModel();
             PizzaListView.ItemsSource = pizzaViewModel.httpPizzaList;
@@ -60,7 +61,6 @@ namespace Pizzapalatset
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
             //orderViewModel.AddToCart((Pizza)PizzaListView.SelectedItem);
-            
         }
         private void CancelOrder_Click(object sender, RoutedEventArgs e)
         {
@@ -88,7 +88,7 @@ namespace Pizzapalatset
 
         private async void CancelOrderDB_Click(object sender, RoutedEventArgs e)
         {
-            await orderViewModel.DeleteOrderAsync(Convert.ToInt32(CancelInDB.Text));
+            await orderViewModel.DeleteOrderAsync(CancelInDB.Text);
             CancelInDB.Text = "";
             orderViewModel.httpOrderList.Clear();
             GetOrders();

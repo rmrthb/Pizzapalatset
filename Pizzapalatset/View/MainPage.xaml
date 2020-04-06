@@ -43,13 +43,13 @@
 
                 <TextBlock Grid.Row="0" 
                            Grid.Column="1" 
-                           Grid.ColumnSpan="5" 
+                           Grid.ColumnSpan="6" 
                            Text="Välkommen till Pizzapalatset!" 
                            VerticalAlignment="Center" 
                            FontSize="45" 
                            FontWeight="Medium" 
                            Foreground="#e58061" 
-                           FontFamily="Courier New"></TextBlock>
+                           FontFamily="Consolas"></TextBlock>
 
                 <GridView             
                 x:Name="PizzaListView" 

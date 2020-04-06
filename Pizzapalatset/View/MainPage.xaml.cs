@@ -74,11 +74,6 @@ namespace Pizzapalatset
 
         private async void CancelOrderDB_Click(object sender, RoutedEventArgs e)
         {
-            await orderViewModel.DeleteOrderAsync(Convert.ToInt32(CancelInDB.Text));
-        }
-
-        private async void CancelOrderDB_Click(object sender, RoutedEventArgs e)
-        {
             await orderViewModel.DeleteOrderAsync(Convert.ToInt32(CancelDBText.Text));
         }
     }

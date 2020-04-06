@@ -144,6 +144,7 @@ namespace Pizzapalatset.ViewModel
             MessageDialog msg = new MessageDialog($"Order med ordernummer: {id} har ångrats, och köket har meddelats.");
 
             await msg.ShowAsync();
+            /*TEST*/
         }
     }
 }

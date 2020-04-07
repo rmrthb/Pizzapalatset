@@ -143,7 +143,7 @@ namespace Pizzapalatset.ViewModel
             {
                 foreach (var item in OrderList)
                 {
-                    var pOrder = new PizzaOrder() { OrderID = orderNo, PizzaID = item.PizzaID };
+                    var pOrder = new PizzaOrder(orderNo, item.PizzaID);
                     myOrder = JsonConvert.SerializeObject(pOrder);
                     httpContent = new StringContent(myOrder);
                     httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");

@@ -117,6 +117,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
+                                    
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel Orientation="Horizontal" 
@@ -139,12 +140,13 @@
                                                FontSize="20"></TextBlock>
                                 </StackPanel>
 
+
                                 <StackPanel Orientation="Vertical" 
                                             VerticalAlignment="Center" 
                                             HorizontalAlignment="Center" 
-                                            Grid.Column="3" 
-                                            Width="150" 
-                                            Padding="30" >
+                                            Grid.Column="2" 
+                                            Width="150">
+
                                     <TextBlock Text="{x:Bind DisplayPrice}" 
                                                VerticalAlignment="Center" 
                                                HorizontalAlignment="Center" 
@@ -153,14 +155,13 @@
                                 
                                 <StackPanel Orientation="Vertical" 
                                             VerticalAlignment="Center" 
-                                            HorizontalAlignment="Right" 
+                                            HorizontalAlignment="Center" 
                                             Grid.Column="4" 
-                                            Width="150" 
+                                            Width="100" 
                                             Padding="20" >
+                                    
                                     <Button Content="✕" 
                                             x:Name="RemoveButton" 
-                                            VerticalAlignment="Center" 
-                                            HorizontalAlignment="Right" 
                                             Click="RemoveButton_Click"></Button>
                                 </StackPanel>
 

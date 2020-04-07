@@ -57,7 +57,6 @@ namespace Pizzapalatset
             }
         }
 
-
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
             //orderViewModel.AddToCart((Pizza)PizzaListView.SelectedItem);

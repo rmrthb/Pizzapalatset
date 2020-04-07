@@ -13,6 +13,7 @@ namespace Pizzapalatset.ViewModel
 {
     class PizzaViewModel
     {
+        #region
         public ObservableCollection<Pizza> PizzaList = new ObservableCollection<Pizza>();
 
         public ObservableCollection<Pizza> httpPizzaList = new ObservableCollection<Pizza>();
@@ -20,7 +21,7 @@ namespace Pizzapalatset.ViewModel
         HttpClient httpClient;
 
         string url = "https://localhost:44360/api/pizzas/";
-
+        #endregion
         public PizzaViewModel()
         {
             //InitPizzaList();

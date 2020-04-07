@@ -15,6 +15,7 @@ namespace Pizzapalatset.ViewModel
 {
     class OrderViewModel
     {
+        #region
         public ObservableCollection<Pizza> OrderList = new ObservableCollection<Pizza>();
         public ObservableCollection<Order> httpOrderList = new ObservableCollection<Order>();
         
@@ -23,6 +24,7 @@ namespace Pizzapalatset.ViewModel
         string orderUrl = "https://localhost:44360/api/orders/";
         string pOrderUrl = "https://localhost:44360/api/pizzaorders/";
         public Order MyOrder { get; set; }
+        #endregion
         public OrderViewModel()
         {
             MyOrder = new Order();

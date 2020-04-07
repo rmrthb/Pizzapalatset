@@ -10,11 +10,12 @@ namespace Pizzapalatset.Model
 {
     class Order : INotifyPropertyChanged
     {
+        #region
         private int totalCost = 0;
         private int orderid = 0;
         private string display = "";
         private string displaytot = "";
-
+        #endregion
 
         public int OrderID {
             get { return orderid; }

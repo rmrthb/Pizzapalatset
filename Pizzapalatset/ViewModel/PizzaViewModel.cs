@@ -29,6 +29,7 @@ namespace Pizzapalatset.ViewModel
             httpPizzaList = new ObservableCollection<Pizza>();
             httpClient = new HttpClient();
         }
+        
         /// <summary>
         /// Method that retrieves all the pizzas in the server database.
         /// </summary>
@@ -48,42 +49,41 @@ namespace Pizzapalatset.ViewModel
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public async Task AddProductAsync(string pizzaname, string pprice)
+        public async Task AddProductAsync(string pName, string pPrice)
         {
+            int.TryParse(pPrice, out int pizzaprice);
 
-            int.TryParse(pprice, out int pizzaprice);
-
-            Pizza p = new Pizza(pizzaname, pizzaprice);
-            //steg 1: serializera object till sträng
+            Pizza p = new Pizza(pName, pizzaprice);
             var pizza = JsonConvert.SerializeObject(p);
-
-            //steg 2: Berätta att strängen är ett httpcontent (meddelande som ska skickas iväg)
             HttpContent httpContent = new StringContent(pizza);
-
-            //steg 3: berätta om format som är json
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            //steg 4: Posta
             await httpClient.PostAsync(url, httpContent);
 
-            MessageDialog msg = new MessageDialog($"'{pizzaname}' har lagts till i menyn.");
+            MessageDialog msg = new MessageDialog($"'{pName}' med pris {pPrice} har lagts till i menyn.");
             await msg.ShowAsync();
         }
+        
         /// <summary>
         /// Method that updates the price of a pizza in the database using a PUT request.
         /// </summary>
         /// <param name="p"></param>
         /// <param name="newp"></param>
         /// <returns></returns>
-        public async Task UpdateProductAsync(Pizza p, string newp)
+        public async Task UpdateProductAsync(Pizza p, string newPizza)
         {
-            int.TryParse(newp, out int newprice);
-            p.PizzaPrice = newprice;
+            int.TryParse(newPizza, out int newPrice);
+            p.PizzaPrice = newPrice;
             var updatedPizza = JsonConvert.SerializeObject(p);
             HttpContent httpContent = new StringContent(updatedPizza);
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
             await httpClient.PutAsync(url + p.PizzaID, httpContent);
+
+            MessageDialog msg = new MessageDialog($"'{p.PizzaName}' har uppdaterats med det nya priset {newPrice}.");
+            await msg.ShowAsync();
         }
+        
         /// <summary>
         /// Method that deletes a pizza in the database using a DELETE request.
         /// </summary>
@@ -107,6 +107,7 @@ namespace Pizzapalatset.ViewModel
             }
 
         }
+        
         /// <summary>
         /// Method that generates a set of pizzas, if I want to test the application offline.
         /// </summary>

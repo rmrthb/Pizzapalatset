@@ -92,6 +92,8 @@ namespace Pizzapalatset
         {
             await pizzaViewModel.AddProductAsync(AddNewPizzaName.Text, AddNewPizzaPrice.Text);
             UpdatePizzas();
+            AddNewPizzaName.Text = "";
+            AddNewPizzaPrice.Text = "";
         }
 
         private async void GetPizzas()

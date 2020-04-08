@@ -24,13 +24,13 @@ namespace Pizzapalatset.ViewModel
         string orderUrl = "https://localhost:44360/api/orders/";
         string pOrderUrl = "https://localhost:44360/api/pizzaorders/";
         public Order MyOrder { get; set; }
-        #endregion
         public OrderViewModel()
         {
             MyOrder = new Order();
             httpClient = new HttpClient();
             httpOrderList = new ObservableCollection<Order>();
         }
+        #endregion
         /// <summary>
         /// Method that adds a pizza to the OrderList and calculates the total cost of the order.
         /// </summary>
@@ -43,6 +43,7 @@ namespace Pizzapalatset.ViewModel
                 CalculateTotalCost(pizza, true);
             }
         }
+        
         /// <summary>
         /// Method that removes a pizza to the OrderList and recalculates the total cost of the order.
         /// </summary>
@@ -55,6 +56,7 @@ namespace Pizzapalatset.ViewModel
                 CalculateTotalCost(pizza, false);
             }
         }
+        
         /// <summary>
         /// Method that deletes all the elements in the OrderList in case the user wants to cancel their order.
         /// </summary>
@@ -76,6 +78,7 @@ namespace Pizzapalatset.ViewModel
                 MyOrder.TotalCost = 0;
             }
         }
+        
         /// <summary>
         /// Method that verifies if the user wants to proceed with their order. It also checks if the order is empty, 
         /// in that case the user is prompted to add pizzas to the order.
@@ -106,6 +109,7 @@ namespace Pizzapalatset.ViewModel
                 await empty.ShowAsync();
             }
         }
+        
         /// <summary>
         /// Method that calculates the total cost of the order, depending on the Add/Remove methods.
         /// </summary>
@@ -124,7 +128,7 @@ namespace Pizzapalatset.ViewModel
             }
             return MyOrder.TotalCost;
         }
-
+        
         /// <summary>
         /// Creates and posts an order to the order table + post to the junction table in the server database.
         /// </summary>
@@ -157,6 +161,7 @@ namespace Pizzapalatset.ViewModel
             MessageDialog msg = new MessageDialog($"Du har fått ordernummer: {orderNo}");
             await msg.ShowAsync();
         }
+        
         /// <summary>
         /// In case a user wants to cancel an order, they can type the ordernumber to do that.
         /// </summary>
@@ -179,6 +184,7 @@ namespace Pizzapalatset.ViewModel
                 await msg.ShowAsync();
             }
         }
+        
         /// <summary>
         /// Method that retrieves all the current orders in the database.
         /// </summary>

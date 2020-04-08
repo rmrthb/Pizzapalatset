@@ -44,7 +44,7 @@ namespace Pizzapalatset.ViewModel
         }
 
         /// <summary>
-        /// In case the admin wants to add a pizza.
+        /// Method that adds a pizza to the database using a POST request.
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
@@ -65,8 +65,16 @@ namespace Pizzapalatset.ViewModel
 
             //steg 4: Posta
             await httpClient.PostAsync(url, httpContent);
-        }
 
+            MessageDialog msg = new MessageDialog($"'{pizzaname}' har lagts till i menyn.");
+            await msg.ShowAsync();
+        }
+        /// <summary>
+        /// Method that updates the price of a pizza in the database using a PUT request.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="newp"></param>
+        /// <returns></returns>
         public async Task UpdateProductAsync(Pizza p, string newp)
         {
             int.TryParse(newp, out int newprice);
@@ -76,13 +84,28 @@ namespace Pizzapalatset.ViewModel
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             await httpClient.PutAsync(url + p.PizzaID, httpContent);
         }
-
+        /// <summary>
+        /// Method that deletes a pizza in the database using a DELETE request.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public async Task RemoveProductAsync(Pizza p)
         {
-            var httpClient = new HttpClient();
-            var result = await httpClient.DeleteAsync(url + p.PizzaID);
-            MessageDialog msg = new MessageDialog($"'{p.PizzaName}' har tagits bort från sortimentet.");
-            await msg.ShowAsync();
+            var remove = new MessageDialog($"Är du säker på att du vill ta bort {p.PizzaName}?");
+            remove.Commands.Clear();
+            remove.Commands.Add(new UICommand { Label = "Ja", Id = 0 });
+            remove.Commands.Add(new UICommand { Label = "Avbryt", Id = 1 });
+
+            var answer = await remove.ShowAsync();
+
+            if ((int)answer.Id == 0)
+            {
+                var httpClient = new HttpClient();
+                var result = await httpClient.DeleteAsync(url + p.PizzaID);
+                MessageDialog msg = new MessageDialog($"'{p.PizzaName}' har tagits bort från menyn.");
+                await msg.ShowAsync();
+            }
+
         }
         /// <summary>
         /// Method that generates a set of pizzas, if I want to test the application offline.

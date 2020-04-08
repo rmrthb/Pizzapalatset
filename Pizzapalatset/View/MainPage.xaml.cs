@@ -39,26 +39,6 @@ namespace Pizzapalatset
             GetOrders();
         }
 
-        private async void GetPizzas()
-        {
-            var pizzas = await pizzaViewModel.GetProductsAsync();
-
-            foreach(Pizza p in pizzas)
-            {
-                pizzaViewModel.httpPizzaList.Add(p);
-
-            }
-        }
-        private async void GetOrders()
-        {
-            var orders = await orderViewModel.GetOrdersAsync();
-
-            foreach(Order o in orders)
-            {
-                orderViewModel.httpOrderList.Add(o);
-            }
-        }
-
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
             //orderViewModel.AddToCart((Pizza)PizzaListView.SelectedItem);
@@ -83,24 +63,21 @@ namespace Pizzapalatset
         {
             Order o = orderViewModel.MyOrder;
             await orderViewModel.ConfirmOrder(o);
-            orderViewModel.httpOrderList.Clear();
-            GetOrders();
+            UpdateOrders();
         }
 
         private async void CancelOrderDB_Click(object sender, RoutedEventArgs e)
         {
             await orderViewModel.DeleteOrderAsync(CancelInDB.Text);
             CancelInDB.Text = "";
-            orderViewModel.httpOrderList.Clear();
-            GetOrders();
+            UpdateOrders();
         }
 
         private async void UpdatePizzaPriceButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedPizza = UpdatePizzaListView.SelectedItem as Pizza;
             await pizzaViewModel.UpdateProductAsync(selectedPizza, UpdatePizzaPriceBox.Text);
-            pizzaViewModel.httpPizzaList.Clear();
-            GetPizzas();
+            UpdatePizzas();
             UpdatePizzaPriceBox.Text = "";
         }
 
@@ -108,8 +85,44 @@ namespace Pizzapalatset
         {
             var selectedPizza = UpdatePizzaListView.SelectedItem as Pizza;
             await pizzaViewModel.RemoveProductAsync(selectedPizza);
+            UpdatePizzas();
+        }
+
+        private async void AddPizzaButton_Click(object sender, RoutedEventArgs e)
+        {
+            await pizzaViewModel.AddProductAsync(AddNewPizzaName.Text, AddNewPizzaPrice.Text);
+            UpdatePizzas();
+        }
+
+        private async void GetPizzas()
+        {
+            var pizzas = await pizzaViewModel.GetProductsAsync();
+
+            foreach (Pizza p in pizzas)
+            {
+                pizzaViewModel.httpPizzaList.Add(p);
+
+            }
+        }
+        private async void GetOrders()
+        {
+            var orders = await orderViewModel.GetOrdersAsync();
+
+            foreach (Order o in orders)
+            {
+                orderViewModel.httpOrderList.Add(o);
+            }
+        }
+
+        private void UpdatePizzas()
+        {
             pizzaViewModel.httpPizzaList.Clear();
             GetPizzas();
+        }
+        private void UpdateOrders()
+        {
+            orderViewModel.httpOrderList.Clear();
+            GetOrders();
         }
     }
 }

@@ -392,17 +392,18 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Tillgängliga pizzor" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom" FontSize="30">
-                    
-                </TextBlock>
+
                 <ListView 
                 x:Name="UpdatePizzaListView" 
                 Background="White"
                 Grid.Row="1" 
                 Grid.RowSpan="6" 
-                Grid.Column="1" 
+                Grid.Column="4" 
                 Grid.ColumnSpan="4" 
-                ItemsSource="{x:Bind pizzaViewModel.httpPizzaList}">
+                ItemsSource="{x:Bind pizzaViewModel.httpPizzaList}"
+                Header="Pizzor i menyn"
+                FontSize="30"
+                    >
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="local:Pizza">
                             <Grid>
@@ -451,10 +452,65 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <TextBox x:Name="UpdatePizzaPriceBox" PlaceholderText="Nytt pris" Grid.Row="2" Grid.Column="6" Width="100" Height="50"></TextBox>
-                <Button x:Name="UpdatePizzaPriceButton" Content="Uppdatera pris" Grid.Row="3" Grid.Column="6" Width="200" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" Click="UpdatePizzaPriceButton_Click"></Button>
-                <Button x:Name="RemovePizzaButton" Content="Ta bort pizza" Grid.Row="5" Grid.Column="6" Width="200" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" Click="RemovePizzaButton_Click"></Button>
 
+
+                <StackPanel Grid.Row="1" Grid.RowSpan="3" Grid.Column="9" Grid.ColumnSpan="2" Width="200" >
+                    <TextBlock Text="Lägg till pizza" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBox x:Name="AddNewPizzaName" PlaceholderText="Namn" Width="200" Height="50" FontSize="20" TextAlignment="Center"></TextBox>
+                    <TextBlock></TextBlock>
+                    <TextBox x:Name="AddNewPizzaPrice" PlaceholderText="Pris" Width="200" Height="50" FontSize="20" TextAlignment="Center"></TextBox>
+                    <TextBlock></TextBlock>
+                    <Button x:Name="AddPizzaButton" 
+                            Content="Lägg till pizza"                             
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Center" 
+                            Width="150" 
+                            Height="55" 
+                            CornerRadius="25" 
+                            FontSize="20"
+                            FontStyle="Normal"
+                            FontWeight="Medium"
+                            Foreground="White"
+                            Background="#990000" Click="AddPizzaButton_Click"></Button>
+                </StackPanel>
+                
+                <StackPanel Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="2" Grid.RowSpan="2" Width="200" VerticalAlignment="Bottom">
+                    <TextBlock Text="Välj en pizza för att uppdatera priset" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontSize="20"></TextBlock>
+
+                    <TextBox x:Name="UpdatePizzaPriceBox" PlaceholderText="Nytt pris" Width="200" Height="50" FontSize="20" TextAlignment="Center"></TextBox>
+                    <TextBlock></TextBlock>
+                    <Button x:Name="UpdatePizzaPriceButton" 
+                            Content="Uppdatera" 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Center" 
+                            Width="150" 
+                            Height="55" 
+                            CornerRadius="25" 
+                            FontSize="20"
+                            FontStyle="Normal"
+                            FontWeight="Medium"
+                            Foreground="White"
+                            Background="#990000"
+                            Click="UpdatePizzaPriceButton_Click"
+                            ></Button>
+                </StackPanel>
+
+                <StackPanel Grid.Row="5" Grid.RowSpan="2" Grid.Column="9" Grid.ColumnSpan="2" Width="200" VerticalAlignment="Bottom">
+                    <TextBlock Text="Välj en pizza för att ta bort den från menyn" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock></TextBlock>
+                    <Button x:Name="RemovePizzaButton" 
+                            Content="Ta bort pizza"                             
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Center" 
+                            Width="150" 
+                            Height="55" 
+                            CornerRadius="25" 
+                            FontSize="20"
+                            FontStyle="Normal"
+                            FontWeight="Medium"
+                            Foreground="White"
+                            Background="#990000" Click="RemovePizzaButton_Click"></Button>
+                </StackPanel>
             </Grid>
         </PivotItem>
     </Pivot>

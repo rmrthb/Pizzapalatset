@@ -16,7 +16,10 @@ namespace Pizzapalatset.ViewModel
     class OrderViewModel
     {
         #region
+        //The list that is  stored locally before it is sent to the database(if the user chooses to place an order).
         public ObservableCollection<Pizza> OrderList = new ObservableCollection<Pizza>();
+
+        //The list used to store the objects received from the database using a GET request.
         public ObservableCollection<Order> httpOrderList = new ObservableCollection<Order>();
         
         HttpClient httpClient;
@@ -130,7 +133,8 @@ namespace Pizzapalatset.ViewModel
         }
         
         /// <summary>
-        /// Creates and posts an order to the order table + post to the junction table in the server database.
+        /// Method that creates and posts an order to the order table and post to the junction table in the server database.
+        /// It also gives the user an order number connected to the order they just placed.
         /// </summary>
         /// <param name="o"></param>
         /// <returns></returns>
@@ -163,7 +167,7 @@ namespace Pizzapalatset.ViewModel
         }
         
         /// <summary>
-        /// In case a user wants to cancel an order, they can type the ordernumber to do that.
+        /// Method that deletes an order in case a user wants to cancel their order.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -180,7 +184,7 @@ namespace Pizzapalatset.ViewModel
             }
             else
             {
-                MessageDialog msg = new MessageDialog("Ordern kunde inte hittas, vänligen kolla så att ordernumret är korrekt");
+                MessageDialog msg = new MessageDialog("Ordern kunde inte hittas, vänligen kontrollera att ordernumret är korrekt");
                 await msg.ShowAsync();
             }
         }

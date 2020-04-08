@@ -36,11 +36,8 @@ namespace Pizzapalatset.ViewModel
         /// <returns></returns>
         public async Task<ObservableCollection<Pizza>> GetProductsAsync()
         {
-            //steg 1
             var jsonProducts = await httpClient.GetStringAsync(url);
-            //steg 2
             var pizzas = JsonConvert.DeserializeObject<ObservableCollection<Pizza>>(jsonProducts);
-            //steg 3
             return pizzas;
         }
 
@@ -51,37 +48,62 @@ namespace Pizzapalatset.ViewModel
         /// <returns></returns>
         public async Task AddProductAsync(string pName, string pPrice)
         {
-            int.TryParse(pPrice, out int pizzaprice);
+            if (!string.IsNullOrEmpty(pName) && !string.IsNullOrWhiteSpace(pPrice)) 
+            {
+                int.TryParse(pPrice, out int pizzaprice);
 
-            Pizza p = new Pizza(pName, pizzaprice);
-            var pizza = JsonConvert.SerializeObject(p);
-            HttpContent httpContent = new StringContent(pizza);
-            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                Pizza p = new Pizza(pName, pizzaprice);
+                var pizza = JsonConvert.SerializeObject(p);
+                HttpContent httpContent = new StringContent(pizza);
+                httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            await httpClient.PostAsync(url, httpContent);
+                await httpClient.PostAsync(url, httpContent);
 
-            MessageDialog msg = new MessageDialog($"'{pName}' med pris {pPrice} har lagts till i menyn.");
-            await msg.ShowAsync();
+                MessageDialog msg = new MessageDialog($"'{pName}' med pris {pPrice} har lagts till i menyn.");
+                await msg.ShowAsync();
+            }
+            else
+            {
+                MessageDialog msg = new MessageDialog($"Se till att båda fälten är ifyllda!");
+                await msg.ShowAsync();
+            }
         }
         
         /// <summary>
         /// Method that updates the price of a pizza in the database using a PUT request.
         /// </summary>
         /// <param name="p"></param>
-        /// <param name="newp"></param>
+        /// <param name="newPizza"></param>
         /// <returns></returns>
-        public async Task UpdateProductAsync(Pizza p, string newPizza)
+        public async Task UpdateProductAsync(Pizza p, string newPizzaPrice)
         {
-            int.TryParse(newPizza, out int newPrice);
-            p.PizzaPrice = newPrice;
-            var updatedPizza = JsonConvert.SerializeObject(p);
-            HttpContent httpContent = new StringContent(updatedPizza);
-            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            if (!string.IsNullOrWhiteSpace(newPizzaPrice) && p != null)
+            {
+                if (int.TryParse(newPizzaPrice, out int newPrice))
+                {
+                    p.PizzaPrice = newPrice;
+                    var updatedPizza = JsonConvert.SerializeObject(p);
+                    HttpContent httpContent = new StringContent(updatedPizza);
+                    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            await httpClient.PutAsync(url + p.PizzaID, httpContent);
+                    await httpClient.PutAsync(url + p.PizzaID, httpContent);
 
-            MessageDialog msg = new MessageDialog($"'{p.PizzaName}' har uppdaterats med det nya priset {newPrice}.");
-            await msg.ShowAsync();
+                    MessageDialog update = new MessageDialog($"'{p.PizzaName}' har uppdaterats med det nya priset {newPrice}.");
+                    await update.ShowAsync();
+                }
+                else
+                {
+                    MessageDialog msg = new MessageDialog($"Endast siffror tillåtna!");
+                    await msg.ShowAsync();
+                }
+            }
+            else
+            {
+                MessageDialog valid = new MessageDialog($"Ett fel har uppstått. " +
+                    $"Välj pizzan du vill byta pris på eller fyll i ett giltigt värde.");
+                await valid.ShowAsync();
+            }
+
         }
         
         /// <summary>
@@ -91,21 +113,28 @@ namespace Pizzapalatset.ViewModel
         /// <returns></returns>
         public async Task RemoveProductAsync(Pizza p)
         {
-            var remove = new MessageDialog($"Är du säker på att du vill ta bort {p.PizzaName}?");
-            remove.Commands.Clear();
-            remove.Commands.Add(new UICommand { Label = "Ja", Id = 0 });
-            remove.Commands.Add(new UICommand { Label = "Avbryt", Id = 1 });
-
-            var answer = await remove.ShowAsync();
-
-            if ((int)answer.Id == 0)
+            if (p != null)
             {
-                var httpClient = new HttpClient();
-                var result = await httpClient.DeleteAsync(url + p.PizzaID);
-                MessageDialog msg = new MessageDialog($"'{p.PizzaName}' har tagits bort från menyn.");
+                var remove = new MessageDialog($"Är du säker på att du vill ta bort {p.PizzaName}?");
+                remove.Commands.Clear();
+                remove.Commands.Add(new UICommand { Label = "Ja", Id = 0 });
+                remove.Commands.Add(new UICommand { Label = "Avbryt", Id = 1 });
+
+                var answer = await remove.ShowAsync();
+
+                if ((int)answer.Id == 0)
+                {
+                    var httpClient = new HttpClient();
+                    var result = await httpClient.DeleteAsync(url + p.PizzaID);
+                    MessageDialog msg = new MessageDialog($"'{p.PizzaName}' har tagits bort från menyn.");
+                    await msg.ShowAsync();
+                }
+            }
+            else
+            {
+                MessageDialog msg = new MessageDialog($"Välj pizzan du vill ta bort i listan!");
                 await msg.ShowAsync();
             }
-
         }
         
         /// <summary>

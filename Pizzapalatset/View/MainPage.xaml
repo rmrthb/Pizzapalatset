@@ -393,6 +393,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
+                <TextBlock Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="4" Text="Pizzor i menyn" VerticalAlignment="Bottom" FontSize="40"></TextBlock>
                 <ListView 
                 x:Name="UpdatePizzaListView" 
                 Background="White"
@@ -401,7 +402,6 @@
                 Grid.Column="4" 
                 Grid.ColumnSpan="4" 
                 ItemsSource="{x:Bind pizzaViewModel.httpPizzaList}"
-                Header="Pizzor i menyn"
                 FontSize="30"
                     >
                     <ListView.ItemTemplate>

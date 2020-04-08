@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace Pizzapalatset.ViewModel
 {
@@ -47,13 +48,17 @@ namespace Pizzapalatset.ViewModel
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public async Task AddProductAsync(Pizza p)
+        public async Task AddProductAsync(string pizzaname, string pprice)
         {
+
+            int.TryParse(pprice, out int pizzaprice);
+
+            Pizza p = new Pizza(pizzaname, pizzaprice);
             //steg 1: serializera object till sträng
-            var product = JsonConvert.SerializeObject(p);
+            var pizza = JsonConvert.SerializeObject(p);
 
             //steg 2: Berätta att strängen är ett httpcontent (meddelande som ska skickas iväg)
-            HttpContent httpContent = new StringContent(product);
+            HttpContent httpContent = new StringContent(pizza);
 
             //steg 3: berätta om format som är json
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -61,9 +66,28 @@ namespace Pizzapalatset.ViewModel
             //steg 4: Posta
             await httpClient.PostAsync(url, httpContent);
         }
+
+        public async Task UpdateProductAsync(Pizza p, string newp)
+        {
+            int.TryParse(newp, out int newprice);
+            p.PizzaPrice = newprice;
+            var updatedPizza = JsonConvert.SerializeObject(p);
+            HttpContent httpContent = new StringContent(updatedPizza);
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            await httpClient.PutAsync(url + p.PizzaID, httpContent);
+        }
+
+        public async Task RemoveProductAsync(Pizza p)
+        {
+            var httpClient = new HttpClient();
+            var result = await httpClient.DeleteAsync(url + p.PizzaID);
+            MessageDialog msg = new MessageDialog($"'{p.PizzaName}' har tagits bort från sortimentet.");
+            await msg.ShowAsync();
+        }
         /// <summary>
         /// Method that generates a set of pizzas, if I want to test the application offline.
         /// </summary>
+        ///
         public void InitPizzaList()
         {
             PizzaList.Add(new Pizza(0, "Margarita", 59));

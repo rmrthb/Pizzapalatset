@@ -363,5 +363,99 @@
                 />
             </Grid>
         </PivotItem>
+        <PivotItem Header="Produkt- och orderhantering">
+            <Grid Background="#e7e7e7">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Tillgängliga pizzor" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" VerticalAlignment="Bottom" FontSize="30">
+                    
+                </TextBlock>
+                <ListView 
+                x:Name="UpdatePizzaListView" 
+                Background="White"
+                Grid.Row="1" 
+                Grid.RowSpan="6" 
+                Grid.Column="1" 
+                Grid.ColumnSpan="4" 
+                ItemsSource="{x:Bind pizzaViewModel.httpPizzaList}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="local:Pizza">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Orientation="Horizontal" 
+                                            Grid.Column="0" 
+                                            Padding="5">
+                                    <Image Source="/Assets/mypizza.png" 
+                                           Height="100" Width="100" 
+                                           Stretch="UniformToFill"></Image>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" 
+                                            VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center" 
+                                            Padding="20"  
+                                            Grid.Column="1">
+                                    <TextBlock Text="{x:Bind PizzaName}" 
+                                               VerticalAlignment="Center" 
+                                               HorizontalAlignment="Right" 
+                                               FontWeight="Medium" 
+                                               FontSize="20"></TextBlock>
+                                </StackPanel>
+
+
+                                <StackPanel Orientation="Vertical" 
+                                            VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center" 
+                                            Grid.Column="2" 
+                                            Width="150">
+
+                                    <TextBlock Text="{x:Bind DisplayPrice}" 
+                                               VerticalAlignment="Center" 
+                                               HorizontalAlignment="Center" 
+                                               FontSize="20"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <TextBox x:Name="UpdatePizzaPriceBox" PlaceholderText="Nytt pris" Grid.Row="2" Grid.Column="6" Width="100" Height="50"></TextBox>
+                <Button x:Name="UpdatePizzaPriceButton" Content="Uppdatera pris" Grid.Row="3" Grid.Column="6" Width="200" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" Click="UpdatePizzaPriceButton_Click"></Button>
+                <Button x:Name="RemovePizzaButton" Content="Ta bort pizza" Grid.Row="5" Grid.Column="6" Width="200" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" Click="RemovePizzaButton_Click"></Button>
+
+            </Grid>
+        </PivotItem>
     </Pivot>
 </Page>

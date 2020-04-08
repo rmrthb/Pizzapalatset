@@ -34,6 +34,7 @@ namespace Pizzapalatset
             orderViewModel = new OrderViewModel();
             PizzaListView.ItemsSource = pizzaViewModel.httpPizzaList;
             OrderAsyncListView.ItemsSource = orderViewModel.httpOrderList;
+            UpdatePizzaListView.ItemsSource = pizzaViewModel.httpPizzaList;
             GetPizzas();
             GetOrders();
         }
@@ -45,6 +46,7 @@ namespace Pizzapalatset
             foreach(Pizza p in pizzas)
             {
                 pizzaViewModel.httpPizzaList.Add(p);
+
             }
         }
         private async void GetOrders()
@@ -91,6 +93,23 @@ namespace Pizzapalatset
             CancelInDB.Text = "";
             orderViewModel.httpOrderList.Clear();
             GetOrders();
+        }
+
+        private async void UpdatePizzaPriceButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedPizza = UpdatePizzaListView.SelectedItem as Pizza;
+            await pizzaViewModel.UpdateProductAsync(selectedPizza, UpdatePizzaPriceBox.Text);
+            pizzaViewModel.httpPizzaList.Clear();
+            GetPizzas();
+            UpdatePizzaPriceBox.Text = "";
+        }
+
+        private async void RemovePizzaButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedPizza = UpdatePizzaListView.SelectedItem as Pizza;
+            await pizzaViewModel.RemoveProductAsync(selectedPizza);
+            pizzaViewModel.httpPizzaList.Clear();
+            GetPizzas();
         }
     }
 }
